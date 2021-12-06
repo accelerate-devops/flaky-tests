@@ -29,6 +29,8 @@ jobs:
     - name: Push result to Testspace server
       run: |
         tree
+        echo "Upload test results..."
         testspace **/*.trx
+        echo "Upload code coverage..."
         testspace **/*.xml
       if: always()
