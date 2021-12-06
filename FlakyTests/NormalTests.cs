@@ -19,7 +19,7 @@ namespace FlakyTests
         [InlineData(2000)]
         public void LongRunningTest(int milliseconds)
         {
-            Thread.Sleep(400);
+            Thread.Sleep(milliseconds);
         }
 
         [Fact]
