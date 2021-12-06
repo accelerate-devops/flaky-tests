@@ -25,9 +25,9 @@ jobs:
     - name: Build
       run: dotnet build FlakyTests --no-restore
     - name: Test
-      run: dotnet test FlakyTests --no-build --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./coverage/
+      run: dotnet test FlakyTests --no-build --logger "trx" --collect:"XPlat Code Coverage" -v diag
     - name: Push result to Testspace server
       run: |
-        tree -a
+        tree
         testspace **/*.xml
       if: always()
