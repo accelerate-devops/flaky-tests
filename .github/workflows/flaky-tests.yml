@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: dotnet build FlakyTests --no-restore
     - name: Test
-      run: dotnet test FlakyTests --no-build --verbosity normal
+      run: dotnet test FlakyTests --no-build --logger "trx" --collect "Code Coverage"
     - name: Push result to Testspace server
       run: |
         tree -a
