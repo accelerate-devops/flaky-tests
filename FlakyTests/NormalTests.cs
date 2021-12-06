@@ -26,7 +26,7 @@ namespace FlakyTests
         [Theory]
         [InlineData(0, 5, 5)]
         [InlineData(100, 100, 200)]
-        [InlineData(-5, 5, 5)]
+        [InlineData(-5, 5, 0)]
         public void AddTest(int a, int b, int result)
         {
             var sut = new Sut();
