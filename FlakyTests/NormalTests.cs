@@ -3,6 +3,7 @@ using Xunit;
 using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
+using SystemUnderTest;
 
 namespace FlakyTests
 {
@@ -22,27 +23,22 @@ namespace FlakyTests
             Thread.Sleep(milliseconds);
         }
 
-        [Fact]
-        public void FlakyTest()
+        [Theory]
+        [InlineData(0, 5, 5)]
+        [InlineData(100, 100, 200)]
+        [InlineData(-5, 5, 5)]
+        public void AddTest(int a, int b, int result)
         {
-            var random = new Random(DateTime.Now.Millisecond);
-            var next = random.Next(10);
-            Assert.True(next % 3 != 0, "Randomly failing test.");
-        }
-
-        [Fact]
-        public void AnotherFlakyTest()
-        {
-            var random = new Random(DateTime.Now.Millisecond);
-            var next = random.Next(10);
-            Assert.True(next % 3 != 0, "Another randomly failing test.");
+            var sut = new Sut();
+            Assert.Equal(result, sut.Add(a, b));
         }
 
         [Theory]
         [ClassData(typeof(TestData))]
-        public void RandomTests(string s)
+        public void RandomTests(int i, string s)
         {
-            Console.WriteLine(s);
+            var sut = new Sut();
+            sut.Random(i, s);
         }
 
         public class TestData : IEnumerable<object[]>
@@ -51,7 +47,7 @@ namespace FlakyTests
             {
                 for (int i = 0; i < 75; i++)
                 {
-                    yield return new object[] { $"Test {i}" };
+                    yield return new object[] { i, $"Test {i}" };
                 }
             }
 
