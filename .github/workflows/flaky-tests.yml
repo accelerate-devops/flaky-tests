@@ -21,13 +21,14 @@ jobs:
       with:
         domain: accelerate-devops
     - name: Restore dependencies
-      run: dotnet restore FlakyTests
+      run: dotnet restore
     - name: Build
-      run: dotnet build FlakyTests --no-restore
+      run: dotnet build --no-restore
     - name: Test
-      run: dotnet test FlakyTests --no-build --logger "trx" --collect:"XPlat Code Coverage" -v diag
+      run: dotnet test --no-build --logger "trx" --collect:"XPlat Code Coverage"
     - name: Push result to Testspace server
       run: |
         tree
+        testspace **/*.trx
         testspace **/*.xml
       if: always()
