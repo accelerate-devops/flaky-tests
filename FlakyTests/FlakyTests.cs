@@ -10,7 +10,7 @@ namespace FlakyTests
         {
             var random = new Random(DateTime.Now.Millisecond);
             var next = random.Next(10);
-            Assert.True(next % 3 != 0, "Randomly failing test.");
+            Assert.True(next != 1, "Randomly failing test.");
         }
 
         [Fact]
@@ -18,7 +18,7 @@ namespace FlakyTests
         {
             var random = new Random(DateTime.Now.Millisecond);
             var next = random.Next(10);
-            Assert.True(next % 3 != 0, "Another randomly failing test.");
+            Assert.True(next != 2, "Another randomly failing test.");
         }
     }
 }
