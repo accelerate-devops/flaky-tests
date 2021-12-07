@@ -40,6 +40,6 @@ jobs:
       with:
         account: 62378660
         repository: 435575531
-        path: '**/*.{xml,trx}'
+        path: '**/*.trx'
         key: ${{ secrets.BUILDPULSE_ACCESS_KEY_ID }}
         secret: ${{ secrets.BUILDPULSE_SECRET_ACCESS_KEY }}
