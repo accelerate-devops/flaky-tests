@@ -14,29 +14,36 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+        
     - uses: testspace-com/setup-testspace@v1
       with:
         domain: accelerate-devops
+        
     - name: Restore dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build --no-restore
+      
     - name: Test
       run: dotnet test --no-build --logger "trx;LogFileName=TestResults.xml" --collect:"XPlat Code Coverage"
-    - name: Push result to Testspace server
+    
+    - name: Delete second coverage file
       run: |
-        tree FlakyTests/TestResults
-        echo "Delete second coverage file..."
         shopt -s globstar; rm -rf FlakyTests/TestResults/_fv*
         tree FlakyTests/TestResults
-        echo "Upload test and code coverage results..."
+        
+    - name: Push test results to Testspace
+      run: |
         testspace FlakyTests/TestResults/**/*.xml
       if: '!cancelled()'
-    - name: Upload test results to BuildPulse for flaky test detection
+      
+    - name: Upload test results to BuildPulse
       uses: Workshop64/buildpulse-action@v0.7.0
       with:
         account: 62378660
@@ -45,3 +52,8 @@ jobs:
         key: ${{ secrets.BUILDPULSE_ACCESS_KEY_ID }}
         secret: ${{ secrets.BUILDPULSE_SECRET_ACCESS_KEY }}
       if: '!cancelled()'
+      
+    - name: Publish test results to GitHub
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      with:
+        files: FlakyTests/TestResults/TestResults.xml
