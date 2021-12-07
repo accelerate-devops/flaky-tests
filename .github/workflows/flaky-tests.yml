@@ -30,7 +30,7 @@ jobs:
       run: |
         tree FlakyTests/TestResults
         echo "Delete second coverage file..."
-        shopt -s globstar; rm FlakyTests/TestResults/**/In/**/coverage.cobertura.xml
+        shopt -s globstar; rm -rf FlakyTests/TestResults/_fv*
         tree FlakyTests/TestResults
         echo "Upload test and code coverage results..."
         testspace FlakyTests/TestResults/**/*.xml
