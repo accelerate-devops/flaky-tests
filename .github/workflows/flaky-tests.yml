@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --logger "trx" --collect:"XPlat Code Coverage"
+      run: dotnet test --no-build --logger "trx;LogFileName=FlakyTests/TestResults/TestResults.xml" --collect:"XPlat Code Coverage"
     - name: Push result to Testspace server
       run: |
         tree
@@ -40,6 +40,6 @@ jobs:
       with:
         account: 62378660
         repository: 435575531
-        path: 'FlakyTests/TestResults/*.trx'
+        path: 'FlakyTests/TestResults/TestResults.xml'
         key: ${{ secrets.BUILDPULSE_ACCESS_KEY_ID }}
         secret: ${{ secrets.BUILDPULSE_SECRET_ACCESS_KEY }}
