@@ -54,6 +54,6 @@ jobs:
       if: '!cancelled()'
       
     - name: Publish test results to GitHub
-      uses: EnricoMi/publish-unit-test-result-action@v1
+      uses: EnricoMi/publish-unit-test-result-action@v1.25
       with:
         files: FlakyTests/TestResults/TestResults.xml
