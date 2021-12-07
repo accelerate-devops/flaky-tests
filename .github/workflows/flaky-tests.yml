@@ -34,3 +34,12 @@ jobs:
         echo "Upload code coverage..."
         testspace **/*.xml
       if: always()
+    - name: Upload test results to BuildPulse for flaky test detection
+      if: '!cancelled()'
+      uses: Workshop64/buildpulse-action@v0.7.0
+      with:
+        account: 62378660
+        repository: 435575531
+        path: '**/*.{xml,trx}'
+        key: ${{ secrets.BUILDPULSE_ACCESS_KEY_ID }}
+        secret: ${{ secrets.BUILDPULSE_SECRET_ACCESS_KEY }}
