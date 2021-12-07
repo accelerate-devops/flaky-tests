@@ -28,14 +28,14 @@ jobs:
       run: dotnet test --no-build --logger "trx;LogFileName=TestResults.xml" --collect:"XPlat Code Coverage"
     - name: Push result to Testspace server
       run: |
-        tree
-        echo "Upload test results..."
-        testspace **/TestResults.xml
-        echo "Upload code coverage..."
-        testspace **/*.xml
-      if: always()
-    - name: Upload test results to BuildPulse for flaky test detection
+        tree FlakyTests/TestResults
+        echo "Delete second coverage file..."
+        shopt -s globstar; rm FlakyTests/TestResults/**/In/**/coverage.cobertura.xml
+        tree FlakyTests/TestResults
+        echo "Upload test and code coverage results..."
+        testspace FlakyTests/TestResults/**/*.xml
       if: '!cancelled()'
+    - name: Upload test results to BuildPulse for flaky test detection
       uses: Workshop64/buildpulse-action@v0.7.0
       with:
         account: 62378660
@@ -43,3 +43,4 @@ jobs:
         path: 'FlakyTests/TestResults/TestResults.xml'
         key: ${{ secrets.BUILDPULSE_ACCESS_KEY_ID }}
         secret: ${{ secrets.BUILDPULSE_SECRET_ACCESS_KEY }}
+      if: '!cancelled()'
