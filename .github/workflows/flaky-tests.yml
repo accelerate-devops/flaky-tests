@@ -52,8 +52,3 @@ jobs:
         key: ${{ secrets.BUILDPULSE_ACCESS_KEY_ID }}
         secret: ${{ secrets.BUILDPULSE_SECRET_ACCESS_KEY }}
       if: '!cancelled()'
-      
-    - name: Publish test results to GitHub
-      uses: EnricoMi/publish-unit-test-result-action@v1.25
-      with:
-        files: FlakyTests/TestResults/TestResults.xml
