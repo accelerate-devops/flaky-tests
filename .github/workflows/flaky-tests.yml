@@ -44,7 +44,7 @@ jobs:
         testspace FlakyTests/TestResults/**/*.xml
       if: '!cancelled()'
       
-    - name: Convert TRX to JUnit
+    - name: Convert trx to JUnit as BuildPulse does not understand trx format
       run: |
         dotnet tool install -g trx2junit
         trx2junit FlakyTests/TestResults/TestResults.xml --output junit
@@ -55,7 +55,7 @@ jobs:
       with:
         account: 62378660
         repository: 435575531
-        path: 'FlakyTests/TestResults/TestResults.xml'
+        path: 'junit/TestResults.xml'
         key: ${{ secrets.BUILDPULSE_ACCESS_KEY_ID }}
         secret: ${{ secrets.BUILDPULSE_SECRET_ACCESS_KEY }}
       if: '!cancelled()'
