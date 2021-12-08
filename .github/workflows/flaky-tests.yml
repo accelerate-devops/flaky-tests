@@ -37,6 +37,7 @@ jobs:
       run: |
         shopt -s globstar; rm -rf FlakyTests/TestResults/_fv*
         tree FlakyTests/TestResults
+      if: '!cancelled()'
         
     - name: Push test results to Testspace
       run: |
@@ -47,6 +48,7 @@ jobs:
       run: |
         dotnet tool install -g trx2junit
         trx2junit FlakyTests/TestResults/TestResults.xml --output junit
+      if: '!cancelled()'
       
     - name: Upload test results to BuildPulse
       uses: Workshop64/buildpulse-action@v0.7.0
