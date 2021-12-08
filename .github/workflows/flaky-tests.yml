@@ -1,4 +1,4 @@
-name: .NET
+name: Flaky-Tests
 
 on:
   push:
