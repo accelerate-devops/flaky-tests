@@ -17,7 +17,7 @@ namespace FlakyTests
         [Fact]
         public void FlakyTest()
         {
-            Assert.True(randomId % 8 != 0, $"Randomly failing test ({randomId}).");
+            Assert.True(randomId % 7 != 0, $"Randomly failing test ({randomId}).");
         }
 
         [Fact]
