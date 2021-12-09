@@ -38,16 +38,16 @@ jobs:
         shopt -s globstar; rm -rf FlakyTests/TestResults/_fv*
         tree FlakyTests/TestResults
       if: '!cancelled()'
-        
-    - name: Push test results to Testspace
-      run: |
-        testspace FlakyTests/TestResults/**/*.xml
-      if: '!cancelled()'
       
     - name: Convert trx to JUnit as BuildPulse does not understand trx format
       run: |
         dotnet tool install -g trx2junit
         trx2junit FlakyTests/TestResults/TestResults.xml --output junit
+      if: '!cancelled()'
+      
+    - name: Push test results to Testspace
+      run: |
+        testspace junit/TestResults.xml FlakyTests/TestResults/**/coverage.cobertura.xml
       if: '!cancelled()'
       
     - name: Upload test results to BuildPulse
