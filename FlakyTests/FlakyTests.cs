@@ -9,7 +9,7 @@ namespace FlakyTests
         
         public FailingTests()
         {
-            // every test gets its own random id!
+            // every test gets its own random id.
             var random = new Random(DateTime.Now.Millisecond);
             randomId = random.Next(1, 10);
             Console.WriteLine($"randomId: {randomId}");
