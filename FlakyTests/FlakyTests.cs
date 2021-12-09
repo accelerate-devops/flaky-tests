@@ -11,6 +11,7 @@ namespace FlakyTests
         {
             var random = new Random(DateTime.Now.Millisecond);
             randomId = random.Next(1, 10);
+            Console.WriteLine($"randomId: {randomId}");
         }
         
         [Fact]
